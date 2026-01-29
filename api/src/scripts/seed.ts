@@ -7,9 +7,10 @@ import { Banner } from "../models/Banner";
 import { Product } from "../models/Product";
 import { Order } from "../models/Order";
 import { BankDetails } from "../models/BankDetails";
+import { Payment } from "../models/Payment";
 
 async function ensureCollections() {
-  const names = ["users", "products", "categories", "banners", "orders"];
+  const names = ["users", "products", "categories", "banners", "orders", "payments", "bankdetails"];
   for (const n of names) {
     try {
       await mongoose.connection.createCollection(n);
@@ -76,6 +77,7 @@ async function main() {
   await seedAdmin();
   await seedCore();
   await Order.createCollection();
+  await Payment.createCollection();
   const bdCount = await BankDetails.countDocuments();
   if (bdCount === 0) {
     await BankDetails.create([
