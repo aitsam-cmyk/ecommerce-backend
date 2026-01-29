@@ -19,6 +19,6 @@ export const config = {
       console.error("MongoDB connection error:", err);
     });
   },
-  jwtSecret: process.env.JWT_SECRET || "changeme",
+  jwtSecret: process.env.JWT_SECRET as string,
   stripeKey: process.env.STRIPE_SECRET_KEY || ""
 };
