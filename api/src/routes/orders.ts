@@ -12,6 +12,13 @@ router.post("/", requireAuth, async (req, res) => {
   return res.status(201).json(order);
 });
 
+router.post("/guest", async (req, res) => {
+  const { items, paymentMethod, shippingAddress, paymentInfo } = req.body;
+  const totalAmount = Array.isArray(items) ? items.reduce((sum: number, it: any) => sum + it.price * it.quantity, 0) : 0;
+  const order = await Order.create({ userId: "guest", items, totalAmount, paymentMethod, paymentInfo, shippingAddress });
+  return res.status(201).json(order);
+});
+
 router.get("/mine", requireAuth, async (req, res) => {
   const auth = (req as any).auth as { userId: string };
   const orders = await Order.find({ userId: auth.userId }).sort({ createdAt: -1 }).lean();

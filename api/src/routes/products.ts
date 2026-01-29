@@ -6,7 +6,14 @@ const router = Router();
 
 router.get("/", async (_req, res) => {
   try {
-    const products = await Product.find().limit(50).lean();
+    const q: any = {};
+    const { category, minPrice, maxPrice, minRating } = (_req.query as any) || {};
+    if (category) q.category = category;
+    if (minPrice || maxPrice) q.price = {};
+    if (minPrice) q.price.$gte = Number(minPrice);
+    if (maxPrice) q.price.$lte = Number(maxPrice);
+    if (minRating) q.rating = { $gte: Number(minRating) };
+    const products = await Product.find(q).limit(50).lean();
     return res.json(products);
   } catch {
     // when DB is not configured, return sample products

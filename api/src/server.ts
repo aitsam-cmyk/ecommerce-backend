@@ -7,6 +7,7 @@ import productsRouter from "./routes/products";
 import categoriesRouter from "./routes/categories";
 import bannersRouter from "./routes/banners";
 import ordersRouter from "./routes/orders";
+import reviewsRouter from "./routes/reviews";
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use("/api/products", productsRouter);
 app.use("/api/categories", categoriesRouter);
 app.use("/api/banners", bannersRouter);
 app.use("/api/orders", ordersRouter);
+app.use("/api/reviews", reviewsRouter);
 
 app.get("*", (_req, res) => {
   res.status(200).send(`
