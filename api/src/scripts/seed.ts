@@ -6,6 +6,7 @@ import { Category } from "../models/Category";
 import { Banner } from "../models/Banner";
 import { Product } from "../models/Product";
 import { Order } from "../models/Order";
+import { BankDetails } from "../models/BankDetails";
 
 async function ensureCollections() {
   const names = ["users", "products", "categories", "banners", "orders"];
@@ -75,6 +76,14 @@ async function main() {
   await seedAdmin();
   await seedCore();
   await Order.createCollection();
+  const bdCount = await BankDetails.countDocuments();
+  if (bdCount === 0) {
+    await BankDetails.create([
+      { method: "easypaisa", accountTitle: "M. Aitsam", accountNumber: "03xx-xxxxxxx" },
+      { method: "jazzcash", accountTitle: "M. Aitsam", accountNumber: "03xx-xxxxxxx" },
+      { method: "bank_transfer", accountTitle: "M. Aitsam", accountNumber: "123-456-789", bankName: "HBL", iban: "PKxxHABBxxxx" }
+    ]);
+  }
   console.log("Seeding completed.");
   process.exit(0);
 }

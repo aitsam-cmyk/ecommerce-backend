@@ -8,6 +8,8 @@ import categoriesRouter from "./routes/categories";
 import bannersRouter from "./routes/banners";
 import ordersRouter from "./routes/orders";
 import reviewsRouter from "./routes/reviews";
+import paymentsRouter from "./routes/payments";
+import bankDetailsRouter from "./routes/bank-details";
 
 const app = express();
 
@@ -41,6 +43,8 @@ app.use("/api/categories", categoriesRouter);
 app.use("/api/banners", bannersRouter);
 app.use("/api/orders", ordersRouter);
 app.use("/api/reviews", reviewsRouter);
+app.use("/api/payments", paymentsRouter);
+app.use("/api/bank-details", bankDetailsRouter);
 
 app.get("*", (_req, res) => {
   res.status(200).send(`
