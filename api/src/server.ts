@@ -11,6 +11,22 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
+app.get("/", (_req, res) => {
+  res.status(200).send(`
+    <html>
+      <head><title>E‑commerce API</title></head>
+      <body style="font-family: Arial, sans-serif; padding: 20px;">
+        <h1>E‑commerce API</h1>
+        <p>The backend is running.</p>
+        <ul>
+          <li><a href="/health">/health</a> – service health check</li>
+          <li><a href="/api/products">/api/products</a> – list products</li>
+        </ul>
+      </body>
+    </html>
+  `);
+});
+
 app.get("/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
