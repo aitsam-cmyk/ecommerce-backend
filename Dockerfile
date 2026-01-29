@@ -3,16 +3,14 @@ FROM node:20
 
 WORKDIR /app
 
-# Copy package files first for caching
-# CHANGE: Removed 'api/' prefix. Docker will now look for package.json in the current context.
-COPY package*.json ./
+# Copy API package files first for caching
+COPY api/package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the API source code
-# CHANGE: Removed 'api' prefix. Copies everything from the current directory to /app.
-COPY . .
+# Copy the API source code into the app directory
+COPY api ./
 
 # Build the TypeScript code
 RUN npm run build
