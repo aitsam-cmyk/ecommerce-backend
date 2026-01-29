@@ -3,14 +3,14 @@ FROM node:20
 
 WORKDIR /app
 
-# Copy API package files first for caching
-COPY api/package*.json ./
+# Copy package files first for caching (current context)
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the API source code into the app directory
-COPY api ./
+# Copy the source code from current context
+COPY . .
 
 # Build the TypeScript code
 RUN npm run build
