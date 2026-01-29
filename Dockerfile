@@ -1,15 +1,22 @@
-FROM node:18 AS builder
+# Use Node.js LTS
+FROM node:20
+
 WORKDIR /app
+
+# Copy package files (They are right here, next to the Dockerfile)
 COPY package*.json ./
-RUN npm ci
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the source code (Everything in this folder)
 COPY . .
+
+# Build the TypeScript code
 RUN npm run build
 
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --omit=dev
-COPY --from=builder /app/dist ./dist
-ENV PORT=7860
+# Expose the port
 EXPOSE 7860
-CMD ["node","dist/server.js"]
+
+# Start the application
+CMD ["npm", "start"]
