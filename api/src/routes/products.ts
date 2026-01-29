@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { Product } from "../models/Product";
+import { requireAuth, requireAdmin } from "../middleware/auth";
 
 const router = Router();
 
@@ -32,6 +33,32 @@ router.get("/", async (_req, res) => {
       }
     ]);
   }
+});
+
+router.get("/:id", async (req, res) => {
+  const p = await Product.findById(req.params.id).lean();
+  if (!p) return res.status(404).json({ error: "Not found" });
+  return res.json(p);
+});
+
+router.post("/", requireAuth, requireAdmin, async (req, res) => {
+  const created = await Product.create(req.body);
+  return res.status(201).json(created);
+});
+
+router.patch("/:id", requireAuth, requireAdmin, async (req, res) => {
+  const updated = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true }).lean();
+  return res.json(updated);
+});
+
+router.patch("/:id/stock", requireAuth, requireAdmin, async (req, res) => {
+  const updated = await Product.findByIdAndUpdate(req.params.id, { inStock: req.body.inStock }, { new: true }).lean();
+  return res.json(updated);
+});
+
+router.delete("/:id", requireAuth, requireAdmin, async (req, res) => {
+  await Product.findByIdAndDelete(req.params.id);
+  return res.status(204).end();
 });
 
 export default router;

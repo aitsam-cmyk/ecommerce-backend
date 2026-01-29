@@ -4,6 +4,9 @@ import morgan from "morgan";
 import { config } from "./setup";
 import authRouter from "./routes/auth";
 import productsRouter from "./routes/products";
+import categoriesRouter from "./routes/categories";
+import bannersRouter from "./routes/banners";
+import ordersRouter from "./routes/orders";
 
 const app = express();
 
@@ -33,6 +36,9 @@ app.get("/health", (_req, res) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/products", productsRouter);
+app.use("/api/categories", categoriesRouter);
+app.use("/api/banners", bannersRouter);
+app.use("/api/orders", ordersRouter);
 
 app.get("*", (_req, res) => {
   res.status(200).send(`
