@@ -34,6 +34,22 @@ app.get("/health", (_req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/products", productsRouter);
 
+app.get("*", (_req, res) => {
+  res.status(200).send(`
+    <html>
+      <head><title>E‑commerce API</title></head>
+      <body style="font-family: Arial, sans-serif; padding: 20px;">
+        <h2>Endpoint not found</h2>
+        <p>Available endpoints:</p>
+        <ul>
+          <li><a href="/health">/health</a></li>
+          <li><a href="/api/products">/api/products</a></li>
+        </ul>
+      </body>
+    </html>
+  `);
+});
+
 const port = Number(process.env.PORT || 4000);
 
 config
