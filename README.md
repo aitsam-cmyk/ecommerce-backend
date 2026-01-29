@@ -73,3 +73,5 @@ Full‑stack e‑commerce scaffold:
 - Do not commit `.env` (ignored)
 - For production, restrict CORS to your Vercel domain(s)
 - Add indexes for `category`, `price` as catalog grows
+
+# ecommerce-backend
