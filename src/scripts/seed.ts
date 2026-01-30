@@ -84,8 +84,7 @@ async function main() {
   if (bdCount === 0) {
     await BankDetails.create([
       { method: "easypaisa", accountTitle: "M. Aitsam", accountNumber: "03xx-xxxxxxx" },
-      { method: "jazzcash", accountTitle: "M. Aitsam", accountNumber: "03xx-xxxxxxx" },
-      { method: "bank_transfer", accountTitle: "M. Aitsam", accountNumber: "123-456-789", bankName: "HBL", iban: "PKxxHABBxxxx" }
+      { method: "jazzcash", accountTitle: "M. Aitsam", accountNumber: "03xx-xxxxxxx" }
     ]);
   }
   console.log("Seeding completed.");
