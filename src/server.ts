@@ -46,7 +46,7 @@ app.use("/api/reviews", reviewsRouter);
 app.use("/api/payments", paymentsRouter);
 app.use("/api/bank-details", bankDetailsRouter);
 
-app.get("*", (_req, res) => {
+app.use((_req, res) => {
   res.status(200).send(`
     <html>
       <head><title>E‑commerce API</title></head>
