@@ -30,6 +30,11 @@ router.patch("/:id/status", requireAuth, requireAdmin, async (req, res) => {
   return res.json(updated);
 });
 
+router.patch("/:id/reject", requireAuth, requireAdmin, async (req, res) => {
+  const updated = await Order.findByIdAndUpdate(req.params.id, { status: "rejected" }, { new: true }).lean();
+  return res.json(updated);
+});
+
 router.patch("/:id/payment", requireAuth, async (req, res) => {
   const auth = (req as any).auth as { userId: string; role?: string };
   const order = await Order.findById(req.params.id);

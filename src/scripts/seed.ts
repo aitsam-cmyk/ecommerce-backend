@@ -14,7 +14,9 @@ async function ensureCollections() {
   for (const n of names) {
     try {
       await mongoose.connection.createCollection(n);
-    } catch {}
+    } catch (e) {
+      void e;
+    }
   }
 }
 

@@ -26,7 +26,7 @@ export interface IOrder extends Document {
     bankAccount?: string;
     notes?: string;
   };
-  status: "pending" | "paid" | "shipped" | "delivered" | "cancelled";
+  status: "pending" | "paid" | "shipped" | "delivered" | "cancelled" | "rejected";
   shippingAddress?: string;
   createdAt: Date;
 }
@@ -59,7 +59,7 @@ const OrderSchema = new Schema<IOrder>(
       bankAccount: { type: String },
       notes: { type: String }
     },
-    status: { type: String, enum: ["pending", "paid", "shipped", "delivered", "cancelled"], default: "pending" },
+    status: { type: String, enum: ["pending", "paid", "shipped", "delivered", "cancelled", "rejected"], default: "pending" },
     shippingAddress: { type: String }
   },
   { timestamps: { createdAt: true, updatedAt: true } }
